@@ -34,9 +34,9 @@
 
         <!-- Symptoms Input -->
         <form id="diagnosisForm">
-        {% csrf_token %} <!-- ✅ Add CSRF Token for Django Security -->
-        <textarea id="symptomsInput" placeholder="Enter your symptoms or disease..." required></textarea>
-        <button type="submit" id="analyzeButton" onclick="analyzeSymptoms()">Analyze Symptoms</button>
+            {% csrf_token %}
+            <textarea id="symptomsInput" placeholder="Enter your symptoms or disease..." required></textarea>
+            <button type="submit" id="analyzeButton">Analyze Symptoms</button>
         </form>
 
         <!-- Diagnosis Results -->
@@ -52,8 +52,10 @@
             <a id="goToDoctors" href="{% url 'doctors_page' %}" style="display: none; text-decoration: none; padding: 10px 15px; background: blue; color: white; border-radius: 5px;">Go to Doctors</a>
         </section>
     </section>
+
+    <!-- JavaScript Files -->
     <script src="{% static 'script.js' %}" defer></script>
-<script src="{% static 'diagnosis.js' %}" defer></script>
+    <script src="{% static 'diagnosis.js' %}" defer></script>
 
 </body>
 </html>
