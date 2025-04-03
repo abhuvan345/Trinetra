@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'diagnosis_page' %}">Diagnosis</a></li>
+            <li><a href="{% url 'doctors_page' %}">Doctors</a></li>
+            <li><a href="{% url 'appointments_page' %}">Appointments</a></li>
+            <li><a href="{% url 'about_page' %}">About</a></li>
+
+            <!-- Right-aligned Login & Signup -->
+            <div class="auth-links">
+                <li><a href="{% url 'login_page' %}">Login</a></li>
+                <li><a href="{% url 'signup_page' %}" class="signup-btn">Signup</a></li>
+            </div>
+        </ul>
+    </nav>
+
+    <section id="appointmentDetails" style="display: none;">
+        <h2>Appointment Confirmation</h2>
+        <p><strong>Doctor:</strong> <span id="doctorName"></span></p>
+        <p><strong>Specialization:</strong> <span id="doctorSpecialization"></span></p>
+        <p><strong>Consultation Fee:</strong> ₹<span id="consultationFee"></span></p>
+        <p><strong>Advance Payment (10%):</strong> ₹<span id="advanceFee"></span></p>
+
+        <button id="payButton">Proceed to Payment</button>
+    </section>
+
+    <section id="appointmentHistory" style="display: none;">
+        <h2>Your Appointments</h2>
+
+        <div class="appointment-box">
+            <h3><i class="fas fa-calendar-check"></i> Current Appointments</h3>
+            <ul id="currentList"></ul>
+        </div>
+
+        <div class="appointment-box">
+            <h3><i class="fas fa-history"></i> Past Appointments</h3>
+            <ul id="historyList"></ul>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

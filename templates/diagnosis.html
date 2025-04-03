@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis - Trinetra</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- Load Static CSS -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'diagnosis_page' %}">Diagnosis</a></li>
+            <li><a href="{% url 'doctors_page' %}">Doctors</a></li>
+            <li><a href="{% url 'appointments_page' %}">Appointments</a></li>
+            <li><a href="{% url 'about_page' %}">About</a></li>
+
+            <!-- Right-aligned Login & Signup -->
+            <div class="auth-links">
+                <li><a href="{% url 'login_page' %}">Login</a></li>
+                <li><a href="{% url 'signup_page' %}" class="signup-btn">Signup</a></li>
+            </div>
+        </ul>
+    </nav>
+
+    <!-- Diagnosis Section -->
+    <section id="diagnosis">
+        <h1>AI-Powered Symptom Diagnosis</h1>
+        <p>Select your preferred medical category and enter your symptoms.</p>
+
+        <!-- Medical Category Buttons -->
+        <div class="category-buttons">
+            <button class="category-btn" data-category="western">Western Medicine</button>
+            <button class="category-btn" data-category="ayurvedic">Ayurvedic</button>
+            <button class="category-btn" data-category="homeopathy">Homeopathy</button>
+        </div>
+
+        <!-- Symptoms Input Form -->
+        <form id="diagnosisForm">
+            {% csrf_token %}
+            <textarea name="symptoms" id="symptomsInput" placeholder="Enter your symptoms or disease..." required></textarea>
+            <button type="submit" id="analyzeButton" disabled>Analyze Symptoms</button>
+        </form>
+
+        <!-- Diagnosis Results -->
+        <section id="resultSection" style="display: none;">
+            <h3>Diagnosis Result</h3>
+            <p><strong>Status:</strong> <span id="aiResult"></span></p>
+            <p><strong>Advice:</strong> <span id="diseaseName"></span></p>
+            <p><strong>Visit Doctor:</strong> <span id="visitDoctor"></span></p>
+
+            <!-- Suggested Doctors (if applicable) -->
+            <div id="doctorSuggestions"></div>
+
+            <a id="goToDoctors" href="{% url 'doctors_page' %}" style="display: none; text-decoration: none; padding: 10px 15px; background: blue; color: white; border-radius: 5px;">Go to Doctors</a>
+        </section>
+    </section>
+
+    <script src="{% static 'diagnosis.js' %}"></script> <!-- Load the JavaScript file -->
+</body>
+</html>

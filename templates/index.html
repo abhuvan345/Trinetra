@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinetra - Home</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">  <!-- Static CSS -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'diagnosis_page' %}">Diagnosis</a></li>
+            <li><a href="{% url 'doctors_page' %}">Doctors</a></li>
+            <li><a href="{% url 'appointments_page' %}">Appointments</a></li>
+            <li><a href="{% url 'about_page' %}">About</a></li>
+
+            <!-- Right-aligned Login & Signup -->
+            <div class="auth-links">
+                <li><a href="{% url 'login_page' %}">Login</a></li>
+                <li><a href="{% url 'signup_page' %}" class="signup-btn">Signup</a></li>
+            </div>
+        </ul>
+    </nav>
+
+    <h1 id="animatedText1"></h1>
+    <h2 id="animatedText2"></h2>
+    <p id="extraText">Trinetra is your AI-powered health companion, helping you find nearby doctors and analyze symptoms with intelligent insights. Get instant medical assistance, anytime, anywhere!</p>
+
+    <video autoplay muted loop id="bgVideo">
+        <source src="{% static 'bg-video.mp4' %}" type="video/mp4">  <!-- Video in static folder -->
+    </video>
+
+    <script src="{% static 'core/js/script.js' %}"></script>  <!-- Static JS -->
+</body>
+</html>

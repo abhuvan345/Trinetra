@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'trinetra.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,6 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -124,10 +129,18 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-GEMINI_API_KEY = "AIzaSyA7dVR6L65wlg8IPzzQyKS90ViBxV9btCo"
+GOOGLE_GEMINI_API_KEY = "AIzaSyAETpUc0o7Ev2bxk5K48Bufo-a5oEE-s9M"
 
-STRIPE_SECRET_KEY = "your_stripe_secret_key"
+RAZORPAY_KEY = "rzp_test_SxBuw1M2GdmToC"
+RAZORPAY_SECRET = "NRQzaiYLIltpvZ0u0MWVGll1"
+
 
 TWILIO_ACCOUNT_SID = "your_twilio_sid"
 TWILIO_AUTH_TOKEN = "your_twilio_auth_token"
 TWILIO_PHONE_NUMBER = "your_twilio_phone_number"
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+

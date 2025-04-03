@@ -1,11 +1,10 @@
 import google.generativeai as genai
-from django.conf import settings
 import json
 import re
-import requests
-import google.generativeai as genai
+from django.conf import settings
 
-genai.configure(api_key="AIzaSyAETpUc0o7Ev2bxk5K48Bufo-a5oEE-s9M")
+# Configure Google AI
+genai.configure(api_key=settings.GOOGLE_GEMINI_API_KEY)
 
 
 def classify_symptom(symptoms):
@@ -21,36 +20,9 @@ def classify_symptom(symptoms):
     """
 
     response = model.generate_content(prompt)
-
-    response_text = response.text.strip()
-
-    # 🔥 Remove triple backticks if present
-    response_text = re.sub(r'```json|```', '', response_text).strip()
+    response_text = re.sub(r'```json|```', '', response.text.strip()).strip()
 
     try:
         return json.loads(response_text)
     except json.JSONDecodeError:
-        return {
-            "status": "Error",
-            "advice": "Invalid AI response. Please try again."
-        }
-
-def find_nearby_doctors(latitude, longitude):
-    url = f"https://nominatim.openstreetmap.org/search"
-    params = {
-        "q": "doctor",
-        "format": "json",
-        "limit": 5,
-        "lat": latitude,
-        "lon": longitude
-    }
-
-    response = requests.get(url, params=params)
-    data = response.json()
-
-    doctors = [
-        {"name": place["display_name"], "latitude": place["lat"], "longitude": place["lon"]}
-        for place in data
-    ]
-
-    return doctors
+        return {"status": "Error", "advice": "Invalid AI response. Please try again."}

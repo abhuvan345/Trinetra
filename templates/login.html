@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Trinetra 2.0</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- Load Static CSS -->
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="POST" action="{% url 'login_page' %}">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <p id="login-error-msg" class="error-msg"></p> <!-- Error Message Placeholder -->
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+        <p>Don't have an account? <a href="{% url 'signup_page' %}">Sign up</a></p>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script> <!-- Load Static JS -->
+</body>
+</html>

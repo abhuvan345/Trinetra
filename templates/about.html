@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Trinetra 2.0</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Use static path -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+<nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'diagnosis_page' %}">Diagnosis</a></li>
+            <li><a href="{% url 'doctors_page' %}">Doctors</a></li>
+            <li><a href="{% url 'appointments_page' %}">Appointments</a></li>
+            <li><a href="{% url 'about_page' %}">About</a></li>
+
+            <!-- Right-aligned Login & Signup -->
+            <div class="auth-links">
+                <li><a href="{% url 'login_page' %}">Login</a></li>
+                <li><a href="{% url 'signup_page' %}" class="signup-btn">Signup</a></li>
+            </div>
+        </ul>
+    </nav>
+
+    <div class="about-container">
+        <h1>About <span class="gradient-text">Trinetra</span></h1>
+        <p>
+            Trinetra is an AI-powered medical companion that helps you analyze symptoms, classify disease urgency, and connect with doctors effortlessly.
+        </p>
+
+        <h2>Meet Our Team</h2>
+        <div class="team">
+            <div class="team-member">
+                <img src="{% static 'images/bhuvan.jpg' %}" alt="Team Member 1">
+                <strong><p>Bhuvan A</p></strong>
+                <p>Backend Developer - Django & AI</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/umesh.jpg' %}" alt="Team Member 2">
+                <strong><p>Umesh H N</p></strong>
+                <p>API Integration - Google Maps & Twilio</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/akshay.jpg' %}" alt="Team Member 3">
+                <strong><p>Akshay S</p></strong>
+                <p>Frontend Developer - UI/UX & JavaScript</p>
+            </div>
+        </div>
+
+        <h2>Contact Us</h2>
+        <p>Email: support@trinetra.com</p>
+        <p>Phone: +91 98765 43210</p>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>  <!-- Use static path for JS -->
+</body>
+</html>
