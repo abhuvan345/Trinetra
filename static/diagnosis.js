@@ -1,58 +1,59 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("diagnosisForm");
-    const symptomsInput = document.getElementById("symptomsInput");
-    const analyzeButton = document.getElementById("analyzeButton");
+    console.log("🚀 JavaScript Loaded!");
 
+    // Ensure elements exist before using them
+    const analyzeButton = document.getElementById("analyzeButton");
+    const symptomsInput = document.getElementById("symptoms");
     const aiResult = document.getElementById("aiResult");
     const diseaseName = document.getElementById("diseaseName");
     const visitDoctor = document.getElementById("visitDoctor");
     const doctorSuggestions = document.getElementById("doctorSuggestions");
     const resultSection = document.getElementById("resultSection");
-    const goToDoctors = document.getElementById("goToDoctors");
 
-    // Enable button only when input is not empty
-    symptomsInput.addEventListener("input", function () {
-        analyzeButton.disabled = symptomsInput.value.trim() === "";
-    });
+    if (!analyzeButton || !symptomsInput) {
+        console.error("❌ Required elements not found! Check HTML IDs.");
+        return;
+    }
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent default form submission
+    analyzeButton.addEventListener("click", function () {
+        console.log("🔍 Analyzing symptoms...");
 
         const symptoms = symptomsInput.value.trim();
-        if (!symptoms) return;
-
-        // Fetch CSRF token
-        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+        if (!symptoms) {
+            alert("⚠️ Please enter symptoms before submitting.");
+            return;
+        }
 
         fetch("/api/analyze_symptoms/", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrfToken
-            },
-            body: JSON.stringify({ symptoms: symptoms })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ symptoms }),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`❌ HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            console.log(data);
-            aiResult.textContent = data.status || "Unknown";
-            diseaseName.textContent = data.advice || "No advice available.";
-            visitDoctor.textContent = data.visit_doctor || "Unknown";
+            console.log("✅ API Response:", data);
 
-            // Display doctor suggestions if any
-            doctorSuggestions.innerHTML = "";
-            if (data.suggested_doctors && data.suggested_doctors.length > 0) {
-                doctorSuggestions.innerHTML = "<h4>Suggested Doctors:</h4>";
+            if (aiResult) aiResult.innerHTML = `Severity: <strong>${data.status}</strong>`;
+            if (diseaseName) diseaseName.innerHTML = `Advice: ${data.advice}`;
+            if (visitDoctor) visitDoctor.innerHTML = `Visit Doctor: ${data.visit_doctor ? "Yes" : "No"}`;
+
+            if (doctorSuggestions) {
+                doctorSuggestions.innerHTML = "<h3>Recommended Doctors:</h3>";
                 data.suggested_doctors.forEach(doctor => {
-                    doctorSuggestions.innerHTML += `<p>${doctor.name} - ${doctor.specialization}</p>`;
+                    doctorSuggestions.innerHTML += `<p>📍 ${doctor.name} (Lat: ${doctor.latitude}, Lon: ${doctor.longitude})</p>`;
                 });
-                goToDoctors.style.display = "block";
-            } else {
-                goToDoctors.style.display = "none";
             }
 
-            resultSection.style.display = "block";
+            if (resultSection) resultSection.style.display = "block";
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => {
+            console.error("❌ Error:", error);
+            alert("An error occurred. Please try again.");
+        });
     });
 });

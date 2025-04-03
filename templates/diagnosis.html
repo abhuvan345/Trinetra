@@ -4,8 +4,8 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnosis - Trinetra</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- Load Static CSS -->
+    <title>Diagnosis - Trinetra 2.0</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
 
@@ -17,12 +17,6 @@
             <li><a href="{% url 'doctors_page' %}">Doctors</a></li>
             <li><a href="{% url 'appointments_page' %}">Appointments</a></li>
             <li><a href="{% url 'about_page' %}">About</a></li>
-
-            <!-- Right-aligned Login & Signup -->
-            <div class="auth-links">
-                <li><a href="{% url 'login_page' %}">Login</a></li>
-                <li><a href="{% url 'signup_page' %}" class="signup-btn">Signup</a></li>
-            </div>
         </ul>
     </nav>
 
@@ -38,11 +32,11 @@
             <button class="category-btn" data-category="homeopathy">Homeopathy</button>
         </div>
 
-        <!-- Symptoms Input Form -->
+        <!-- Symptoms Input -->
         <form id="diagnosisForm">
-            {% csrf_token %}
-            <textarea name="symptoms" id="symptomsInput" placeholder="Enter your symptoms or disease..." required></textarea>
-            <button type="submit" id="analyzeButton" disabled>Analyze Symptoms</button>
+        {% csrf_token %} <!-- ✅ Add CSRF Token for Django Security -->
+        <textarea id="symptomsInput" placeholder="Enter your symptoms or disease..." required></textarea>
+        <button type="submit" id="analyzeButton" onclick="analyzeSymptoms()">Analyze Symptoms</button>
         </form>
 
         <!-- Diagnosis Results -->
@@ -58,7 +52,8 @@
             <a id="goToDoctors" href="{% url 'doctors_page' %}" style="display: none; text-decoration: none; padding: 10px 15px; background: blue; color: white; border-radius: 5px;">Go to Doctors</a>
         </section>
     </section>
+    <script src="{% static 'script.js' %}" defer></script>
+<script src="{% static 'diagnosis.js' %}" defer></script>
 
-    <script src="{% static 'diagnosis.js' %}"></script> <!-- Load the JavaScript file -->
 </body>
 </html>

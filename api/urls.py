@@ -4,7 +4,6 @@ from .views import analyze_symptoms, recommend_doctors, create_payment, home, ab
 
 
 urlpatterns = [
-    path("", views.home, name="home"),
     path("about/", views.about, name="about_page"),
     path("diagnosis/", views.diagnosis_page, name="diagnosis_page"),
     path("appointments/", views.appointments_page, name="appointments_page"),
